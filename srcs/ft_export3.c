@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 11:17:04 by kevyn             #+#    #+#             */
-/*   Updated: 2022/09/19 08:36:47 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/23 02:32:12 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ char	*ft_preline(char *line)
 	return (line2);
 }
 
-int	veriflen(char **spli, int i) //fonction modifee
+int	veriflen(char **spli, int i)
 {
 	char	*preenv;
 	int		lenght;
-	
+
 	preenv = ft_preline(g_stock.cpenv[i]);
 	lenght = 0;
 	if (ft_strlen(spli[1]) > ft_strlen(preenv))
@@ -49,13 +49,13 @@ int	veriflen(char **spli, int i) //fonction modifee
 	else
 	{
 		lenght = ft_strlen(preenv);
-		if(preenv)
+		if (preenv)
 			free(preenv);
 		return (lenght);
 	}
 }
 
-int	ft_parseexport(char *spli)//fonction modifiee
+int	ft_parseexport(char *spli)
 {
 	int		i;
 	char	*line;
@@ -83,7 +83,7 @@ int	ft_parseexport(char *spli)//fonction modifiee
 	return (1);
 }
 
-char	**ft_exportaff(char *line, char **newline) //trouver une autre solution de fix pour l'affichage lors de l'entrée d'une variable vide avec = " ex: exokerogk="" "
+char	**ft_exportaff(char *line, char **newline)
 {
 	int	i;
 
@@ -93,25 +93,7 @@ char	**ft_exportaff(char *line, char **newline) //trouver une autre solution de 
 		newline[0][i] = line[i];
 		if (line[i] == '=')
 		{
-			i++;
-			newline[0][i] = '"';
-			i++;
-			while (line[i])
-			{
-				newline[0][i] = line[i - 1];
-				i++;
-			}
-			if(line[i] || line[i - 1])
-			{
-				newline[0][i] = line[i - 1];
-				newline[0][++i] = '"';
-			    newline[0][++i] = '\0';
-			}
-			else
-			{
-				newline[0][i++] = '"';
-				newline[0][i] = '\0';
-			}
+			newline = ft_exportaff2(newline, line, i);
 			return (newline);
 		}
 		i++;

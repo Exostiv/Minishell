@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/13 14:18:41 by kevyn             #+#    #+#             */
-/*   Updated: 2022/09/21 07:28:37 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/22 07:46:19 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,17 +57,14 @@ void	cmd_cd_boucle(char **unparun)
 	}
 }
 
-void free_protect(char *str)
+void	free_protect(char *str)
 {
-    if (str)
-        free(str);
+	if (str)
+		free(str);
 }
 
 void	ft_pipe2(int in)
 {
-	
-	printf("albatard\n");
-	printf("albatard\n");
 	if (g_stock.nbpip == 0
 		|| (g_stock.nbpip > 0 && g_stock.nbpassage == g_stock.nbpip + 1))
 	{

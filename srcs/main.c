@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kevyn <kevyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:38:50 by tnicoue           #+#    #+#             */
-/*   Updated: 2022/09/21 12:53:33 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/22 14:20:11 by kevyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	main(int ac, char **av, char **env)
 	prechauffage(env);
 	while (1)
 	{
+		verif_arn();
 		if ((g_stock.nbpassage == 0) && (g_stock.nbpip == 0))
 		{
 			line = readline("minishell >");

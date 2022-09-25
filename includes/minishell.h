@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 13:57:59 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/21 07:28:14 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/23 02:57:24 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		last_check(int i, char **path, char *line, char **spli);
 char	*ft_first_tri(char *str, int i);
 int		verif_ex_exist(void);
 char	**ft_exptoenv2_boucle(char **cpcpenv, int i, int y);
-void	ft_exportadd_boucle(char **cpcpexp, int i, char *spli, int y);
+void	ft_exportadd_boucle(char **cpcpexp, int i, char *spli);
 char	**ft_exportadd_boucle_end(char **cpcpexp, int i, char *spli);
 int		ft_chevron_redirect2_boucle(char **spli, int i, int y);
 char	**ft_mallocunset_boucle(char **cpcpenv, int i, int y, char **stockset);
@@ -120,6 +120,8 @@ int		ft_strlen_pipe(char **spli);
 void	set_signal(int is_printed);
 void	spli_pipe(char *line);
 int		strlen_pipe(char *line);
+void	verif_arn(void);
+char	*arn_creat(char *line, int i, int y);
 void	cmd_cd_boucle(char **unparun);
 void	ft_pipe(void);
 void	child_process(char **path, char **spli, char **env, int in);
@@ -128,10 +130,22 @@ void	pwd_clean(char *spli);
 void	prechauffage(char **env);
 void	free_protect(char *str);
 char	*ft_replace_absolute(char **spli);
-char	**ft_split_pipe(char const *s, char c);
+char	**ft_split_pipe(const char *s, char c);
 int		chkpospip(int i);
-void    ft_augmentpospip(void);
+void	ft_augmentpospip(void);
 void	ft_pipe2(int in);
+void	fixwait(int id);
+void	fixechopip(int in, char **spli, int i);
+void	fixwaitexp(int id, char **spli, int i);
+char	**fixunsetpip(char **env, char**spli, char **tmp, int i);
+int		fixunsetpip2(char **spli);
+char	**ft_split_pipe2(char const *s, char c, char **a, int i);
+int		futur(const char *s, char c);
+int		compte(const char *s, char c);
+void	ft_verifenv2(char *preenv, char *prespli, char *spli);
+void	ft_exportadd_boucle2(char **cpcpexp, char*prespli, char *preexp, int i);
+char	**ft_exportaff2(char **newline, char *line, int i);
+int		ft_cmd_suite(char **spli, char **path, char **env);
 typedef struct s_stock
 {
 	char	**cpenv;
@@ -154,6 +168,9 @@ typedef struct s_stock
 	int		chkdoubl;
 	int		*chkpospip;
 	int		chks;
+	int		k;
+	int		arn;
+	int		j;
 }	t_stock;
 
 t_stock	g_stock;

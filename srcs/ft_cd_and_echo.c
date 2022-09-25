@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:13:17 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/21 12:45:20 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/22 07:50:47 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,47 +19,15 @@ void	cmd_echo(char **spli)
 	int	in;
 
 	i = 1;
-	/*if (g_stock.out != 0)
-		dup2(g_stock.out, STDOUT_FILENO);
-	if (g_stock.in != 1)    //                        cas non pipe dans line2
-		dup2(g_stock.in, STDIN_FILENO);
-	if(nbpip > 0)
-	{
-	}*/
-	pipe(g_stock.pip); //fix en mettant 2 cas, si pipes présents et si non pipes
+	if (spli[1])
+		del_quote(spli[1]);
+	pipe(g_stock.pip);
 	in = g_stock.pip[0];
 	id = fork();
-	if (id ==0)
-	{
-		ft_pipe2(in);
-		if (!spli[1])
-		{
-			printf("\n");
-			fix_out_inr_redir();
-			exit(0);
-		}
-		if (echo_option(spli[1]) == 0)
-			i++;//                                      cas pipe dans line2
-		while (spli[i])
-		{
-			printf("%s", spli[i++]);
-			if (spli[i] != NULL)
-				printf(" ");
-		}
-		if (echo_option(spli[1]) == 1)
-			printf("\n");
-		exit(0);
-	}
+	if (id == 0)
+		fixechopip(in, spli, i);
 	else
-	{
-		waitpid(id, 0, 0);
-		if (g_stock.out > 1)
-			close(g_stock.out);
-		if (g_stock.in > 0)
-			close(g_stock.in);
-		close(g_stock.pip[1]);
-		fix_out_inr_redir();
-	}
+		fixwait(id);
 }
 
 int	echo_option(char *spli)
@@ -86,8 +54,6 @@ int	echo_option(char *spli)
 	return (0);
 }
 
-//Absolu n'est pas un absolu mais un fdp d'imposteur, 
-//il est mi absolu mi relatif, il faut gérer les /./ lors d'un absolu
 void	cmd_cd(char **spli)
 {
 	char	**unparun;

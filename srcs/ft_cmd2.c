@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cmd2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kevyn <kevyn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 10:56:15 by kevyn             #+#    #+#             */
-/*   Updated: 2022/09/16 15:47:18 by kevyn            ###   ########.fr       */
+/*   Updated: 2022/09/22 07:50:15 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	ft_verifexistunset(char **env, char **spli)
 	int		i;
 	char	*preenv;
 	char	*prespli;
-	
+
 	i = 0;
 	while (env[i])
 	{

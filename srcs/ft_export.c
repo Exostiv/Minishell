@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:15:16 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/19 07:59:02 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/23 02:07:09 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,45 +66,24 @@ void	ft_exportadd(int i, char *spli)
 	z = 0;
 	if (ft_verifdoublon(spli) == 0)
 		return ;
-	printf("1\n");
 	cpcpexp = ft_mallocexportadd();
-	printf("2\n");
 	ft_exptoenv(spli);
-	printf("3\n");
-	ft_exportadd_boucle(cpcpexp, i, spli, y);
+	ft_exportadd_boucle(cpcpexp, i, spli);
 }
 
-void	ft_exportadd_boucle(char **cpcpexp, int i, char *spli, int y)
+void	ft_exportadd_boucle(char **cpcpexp, int i, char *spli)
 {
 	char	*prespli;
 	char	*preexp;
-	
-	
+
 	while (cpcpexp[i])
 	{
 		prespli = ft_preline(spli);
 		preexp = ft_preline(cpcpexp[i]);
-		if (ft_strcmp(prespli, preexp) < 0) //free preline
+		if (ft_strcmp(prespli, preexp) < 0)
 		{
-			printf("non1\n");
-			printf("non4\n");
-			g_stock.cpexp[i] = ft_mallocex(spli, g_stock.cpexp[i]);//free tous les mallocex
-			printf("non3\n");
-			y = i;
-			i++;
-			while (cpcpexp[y])
-			{
-				printf("non2\n");
-				g_stock.cpexp[i] = ft_mallocex(cpcpexp[y], g_stock.cpexp[i]);
-				free_protect(cpcpexp[y]);
-				y++;
-				i++;
-			}
-			g_stock.cpexp[i] = NULL;
-			printf("non\n");
-			free(prespli);
-			free(preexp);
-			free(cpcpexp);
+			g_stock.cpexp[i] = ft_mallocex(spli, g_stock.cpexp[i]);
+			ft_exportadd_boucle2(cpcpexp, prespli, preexp, i);
 			return ;
 		}
 		free(prespli);
@@ -113,7 +92,6 @@ void	ft_exportadd_boucle(char **cpcpexp, int i, char *spli, int y)
 		free(cpcpexp[i]);
 		i++;
 	}
-	printf("oui\n");
 	cpcpexp = ft_exportadd_boucle_end(cpcpexp, i, spli);
 }
 

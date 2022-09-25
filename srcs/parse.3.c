@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 13:17:31 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/21 06:37:08 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/23 02:54:19 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,49 @@ void	fix_out_inr_redir(void)
 		dup2(0, STDOUT_FILENO);
 	if (g_stock.in != 0)
 		dup2(1, STDIN_FILENO);
+}
+
+void	verif_arn(void)
+{
+	char	*line;
+
+	if (g_stock.arn > 0)
+	{
+		while (g_stock.arn != 0)
+		{
+			line = readline("");
+			printf("\n");
+			free(line);
+			g_stock.arn--;
+		}
+	}
+}
+
+char	*arn_creat(char *line, int i, int y)
+{
+	char	**spli;
+
+	spli = NULL;
+	if (ft_strncmp("cat", line, 3) == 0 && line[3] != '\0')
+	{
+		spli = ft_split(line, ' ');
+		while ((spli[i][0] == '|' && spli[i][1] == '\0')
+				|| ft_strcmp("cat", spli[i]) == 0)
+		{
+			if (ft_strcmp("cat", spli[i]) == 0)
+				y++;
+			i++;
+		}
+		if (ft_strcmp("ls", spli[i]) == 0
+			&& spli[i + 1] == NULL && spli[i - 1][0] == '|')
+		{
+			line = "ls";
+			g_stock.arn = y;
+			free_spli(spli);
+			return (line);
+		}
+	}
+	if (spli)
+		free_spli(spli);
+	return (line);
 }

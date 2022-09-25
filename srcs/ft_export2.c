@@ -6,7 +6,7 @@
 /*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 11:03:32 by kevyn             #+#    #+#             */
-/*   Updated: 2022/09/19 08:09:44 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/22 06:45:53 by exostiv          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,25 @@
 
 void	ft_export(char **spli)
 {
+	int	in;
+	int	id;
 	int	i;
 
 	i = 0;
-	if (g_stock.out != 0)
-		dup2(g_stock.out, STDOUT_FILENO);
-	if (g_stock.in != 1)
-		dup2(g_stock.in, STDIN_FILENO);
-	if (!spli[1])
-		ft_export_noarg();
-	else
-	{	
-		if (ft_parseexport(spli[1]) == 1)
-		{
-			return ;
-		}
-		else if (ft_verifenv(spli[1]) == 1)
-		{
-			return ;
-		}
-		ft_exportadd(i, spli[1]);
+	pipe(g_stock.pip);
+	in = g_stock.pip[0];
+	id = fork();
+	if (id == 0 && !spli[1])
+	{
+		ft_pipe2(in);
+		if (!spli[1])
+			ft_export_noarg();
+		exit(0);
 	}
-	fix_out_inr_redir();
+	if (id == 0)
+		exit(0);
+	else
+		fixwaitexp(id, spli, i);
 }
 
 void	ft_exptoenv(char *spli)
@@ -48,13 +45,13 @@ void	ft_exptoenv(char *spli)
 	while (cpcpenv[i])
 	{
 		g_stock.cpenv[i] = ft_mallocex(cpcpenv[i], g_stock.cpenv[i]);
-		if(cpcpenv[i])
+		if (cpcpenv[i])
 			free(cpcpenv[i]);
 		i++;
 	}
 	g_stock.cpenv[i] = ft_mallocex(spli, g_stock.cpenv[i]);
 	g_stock.cpenv[i + 1] = NULL;
-	if(cpcpenv)
+	if (cpcpenv)
 		free(cpcpenv);
 	return ;
 }
@@ -87,7 +84,7 @@ int	ft_verifdoublon(char *spli)
 	int		i;
 	char	*prespli;
 	char	*preexp;
-	
+
 	i = 0;
 	while (g_stock.cpexp[i])
 	{
