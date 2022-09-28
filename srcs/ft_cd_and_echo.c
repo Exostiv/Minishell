@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd_and_echo.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tnicoue <tnicoue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 14:13:17 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/22 07:50:47 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/28 15:15:34 by tnicoue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,13 @@ void	cmd_echo(char **spli)
 	int	id;
 	int	in;
 
+	i = 0;
+	if (g_stock.arn2 == 0)
+		while (spli[i])
+			del_quote(spli[i++]);
+	if (g_stock.arn2 == 1)
+		spli = del_quote_spe(spli);
 	i = 1;
-	if (spli[1])
-		del_quote(spli[1]);
 	pipe(g_stock.pip);
 	in = g_stock.pip[0];
 	id = fork();
@@ -58,6 +62,11 @@ void	cmd_cd(char **spli)
 {
 	char	**unparun;
 
+	if (g_stock.nbpip > 0)
+	{
+		fixcd();
+		return ;
+	}
 	if (spli[1])
 		unparun = ft_split(spli[1], '/');
 	if (!spli[1])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kevyn <kevyn@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 11:26:09 by kevyn             #+#    #+#             */
-/*   Updated: 2022/09/23 02:08:42 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/27 12:24:36 by kevyn            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ char	**parse(char **spli)
 				spli = cmd_dollar_int(spli, i);
 			else if ((spli[i][0] == '$') ||
 					(spli[i][0] == '"' && spli[i][1] == '$'))
-					spli = cmd_dollar(spli, i);
+				spli = cmd_dollar(spli, i);
 			else if (spli[i] != NULL)
 				i++;
 		}
 		i = 0;
 	}
 	i = 0;
+	spli = ft_checkdollar_inside(spli);
 	return (spli);
 }
 

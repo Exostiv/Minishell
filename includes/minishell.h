@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: exostiv <exostiv@student.42.fr>            +#+  +:+       +#+        */
+/*   By: tnicoue <tnicoue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 13:57:59 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/23 02:57:24 by exostiv          ###   ########.fr       */
+/*   Updated: 2022/09/28 15:47:43 by tnicoue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,20 @@ void	ft_verifenv2(char *preenv, char *prespli, char *spli);
 void	ft_exportadd_boucle2(char **cpcpexp, char*prespli, char *preexp, int i);
 char	**ft_exportaff2(char **newline, char *line, int i);
 int		ft_cmd_suite(char **spli, char **path, char **env);
+char	**ft_checkdollar_inside(char **spli);
+char	*ft_replace_existe(char *spli, int y);
+char	*ft_replace_existe_val(char *spli, int y, int i, int z);
+char	*ft_replace_existe_int(char *spli, int y, int i, int z);
+char	**del_quote_spe(char **spli);
+char	*ft_replace_existe_val_end(char *spli, int y, int i, char *tmp2);
+char	*ft_replace_existe_val_boucle(char *tmp);
+char	*ft_add_cote(char *spli, int y, int i, char *tmp);
+char	*ft_add_cote2(char *spli, int y, int i, char *tmp);
+int		ft_modifdirdotdot(void);
+int		ft_verifdirexist(void);
+char	*getpwd(void);
+void	fixcd(void);
+int		ft_arn(char *line);
 typedef struct s_stock
 {
 	char	**cpenv;
@@ -170,6 +184,7 @@ typedef struct s_stock
 	int		chks;
 	int		k;
 	int		arn;
+	int		arn2;
 	int		j;
 }	t_stock;
 
