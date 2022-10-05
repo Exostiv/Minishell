@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnicoue <tnicoue@student.42.fr>            +#+  +:+       +#+        */
+/*   By: kcatrix <kcatrix@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 13:17:31 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/28 15:44:55 by tnicoue          ###   ########.fr       */
+/*   Updated: 2022/10/04 14:38:49 by kcatrix          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	verif_arn(void)
 {
 	char	*line;
 
+	g_stock.fork = 0;
+	g_stock.ll = 0;
 	if (g_stock.arn > 0)
 	{
 		while (g_stock.arn != 0)

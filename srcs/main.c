@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kevyn <kevyn@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tnicoue <tnicoue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 10:38:50 by tnicoue           #+#    #+#             */
-/*   Updated: 2022/09/22 14:20:11 by kevyn            ###   ########.fr       */
+/*   Updated: 2022/10/05 14:00:07 by tnicoue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,13 @@ int	main(int ac, char **av, char **env)
 		verif_arn();
 		if ((g_stock.nbpassage == 0) && (g_stock.nbpip == 0))
 		{
-			line = readline("minishell >");
+			line = readline("minishell > ");
 			add_history(line);
+			line = verif_pipe_end(line);
 		}
 		ft_cmd (line, env);
 		if ((g_stock.nbpassage) == g_stock.nbpip + 1)
-		{
-			free_spli(g_stock.line2);
-			free(line);
-			g_stock.nbpassage = 0;
-			g_stock.nbpip = 0;
-		}
+			ft_main_end(line);
 		else
 			free_spli(g_stock.line2);
 	}
@@ -66,6 +62,7 @@ void	prechauffage(char **env)
 	int	i;
 
 	i = 0;
+	g_stock.chev = NULL;
 	g_stock.cpenv = ft_cp_env(env);
 	verif_export_exist(i);
 	set_signal(0);
@@ -98,13 +95,16 @@ void	f_exit(char **spli)
 	{
 		if (is_num(spli[1]) == 1)
 		{
+			printf("exit\n");
 			printf("minishell: exit: %s: numeric argument required\n",
 				spli[1]);
-			return ;
+			g_stock.end = 255;
+			exit(g_stock.end);
 		}
 		if (spli[2])
 		{
 			printf("minishell: exit: too many arguments\n");
+			g_stock.end = 1;
 			return ;
 		}
 		exit_status = ft_atoi(spli[1]);

@@ -6,7 +6,7 @@
 /*   By: tnicoue <tnicoue@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 13:57:59 by kcatrix           #+#    #+#             */
-/*   Updated: 2022/09/28 15:47:43 by tnicoue          ###   ########.fr       */
+/*   Updated: 2022/10/05 14:36:17 by tnicoue          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,6 +160,22 @@ int		ft_verifdirexist(void);
 char	*getpwd(void);
 void	fixcd(void);
 int		ft_arn(char *line);
+void	interrupt_signal_heredoc(int signal);
+int		verif_pipe(char *line);
+char	*verif_pipe_end(char *line);
+int		verif_tmp(char *tmp);
+char	*verif_pipe_end2(char *line, int i, char *tmp);
+void	ft_main_end(char *line);
+
+void	verif_chev2bis2(void);
+char	*verif_chev(char *str);
+int		verif_chev2(char *str, int i, int j);
+int		verif_chev2bis(char *str, int i);
+char	*verif_chev3(char *str, char *tmp, int i, int j);
+char	*verif_chev3bis(char *str, char *tmp, int i, int j);
+int		ft_errorchev(char *str);
+char	*fixchev(char *line);
+
 typedef struct s_stock
 {
 	char	**cpenv;
@@ -186,6 +202,12 @@ typedef struct s_stock
 	int		arn;
 	int		arn2;
 	int		j;
+	int		vid;
+	int		ll;
+	int		pip2[2];
+	char	*chev;
+	int		chevquote;
+	int		lastposchev;
 }	t_stock;
 
 t_stock	g_stock;
